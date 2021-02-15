@@ -1,0 +1,13 @@
+schema: 'https://nextjs-graphql-with-prisma-simple.vercel.app/api'
+documents: 'src/graphql/**/*.graphql'
+
+config:
+    # Test out the behavior and revisit later on
+    enumsAsConst: true
+
+generates:
+    src/graphql/index.tsx:
+        plugins:
+            - typescript
+            - typescript-operations
+            - typescript-react-apollo
