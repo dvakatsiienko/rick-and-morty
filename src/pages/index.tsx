@@ -1,15 +1,17 @@
+// export { default } from './characters';
 /* Core */
+import { useEffect } from 'react';
 import { NextPage } from 'next';
-
-/* Components */
-import { Layout, Nav } from '@/components';
+import { useRouter } from 'next/router';
 
 const IndexPage: NextPage = () => {
-    return (
-        <Layout>
-            <Nav title = 'Home' />
-        </Layout>
-    );
+    const router = useRouter();
+
+    useEffect(() => {
+        router.replace('/characters?page=1');
+    });
+
+    return null;
 };
 
 export default IndexPage;

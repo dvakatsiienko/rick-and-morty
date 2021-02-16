@@ -1,7 +1,7 @@
 {
     "projects": {
         "app": {
-            "schemaPath": "codegen/schema.graphql",
+            "schemaPath": "https://rickandmortyapi.com/graphql",
             "includes": [ "**/**/*.graphql" ]
         }
     }

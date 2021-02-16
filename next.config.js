@@ -3,13 +3,13 @@
 const analyze = require('@next/bundle-analyzer');
 
 const withBundleAnalyzer = analyze({
-    enabled:      process.env.ANALYZE === 'true',
+    enabled: process.env.ANALYZE === 'true',
     defaultSizes: 'gzip',
 });
 
 const nextConfig = {
     images: {
-        domains: [ 'images.unsplash.com' ],
+        domains: ['rickandmortyapi.com'],
     },
 };
 

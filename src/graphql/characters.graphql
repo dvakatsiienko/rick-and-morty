@@ -1,0 +1,51 @@
+# Query
+query characters($page: Int! = 0) {
+    characters(page: $page) {
+        info {
+            count
+            pages
+            next
+            prev
+        }
+
+        results {
+            ...Character
+        }
+    }
+}
+
+query character($id: ID!) {
+    character(id: $id) {
+        ...Character
+    }
+}
+
+# Fragment
+fragment Character on Character {
+    id
+    name
+    image
+    type
+    status
+    species
+    origin {
+        ...Location
+    }
+    location {
+        ...Location
+    }
+    episode {
+        id
+        name
+    }
+}
+
+fragment Location on Location {
+    id
+    name
+    dimension
+    residents {
+        id
+        name
+    }
+}

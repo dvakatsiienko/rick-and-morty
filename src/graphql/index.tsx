@@ -11,260 +11,356 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  DateTime: any;
+  /** The `Upload` scalar type represents a file upload. */
+  Upload: any;
 };
+
 
 export type Query = {
   __typename?: 'Query';
-  allUsers: Array<User>;
-  _allUsersMeta: _QueryMeta;
-  User: User;
-  allPosts: Array<Post>;
-  _allPostsMeta: _QueryMeta;
-  Post: Post;
+  /** Get a specific character by ID */
+  character?: Maybe<Character>;
+  /** Get the list of all characters */
+  characters?: Maybe<Characters>;
+  /** Get a list of characters selected by ids */
+  charactersByIds?: Maybe<Array<Maybe<Character>>>;
+  /** Get a specific locations by ID */
+  location?: Maybe<Location>;
+  /** Get the list of all locations */
+  locations?: Maybe<Locations>;
+  /** Get a list of locations selected by ids */
+  locationsByIds?: Maybe<Array<Maybe<Location>>>;
+  /** Get a specific episode by ID */
+  episode?: Maybe<Episode>;
+  /** Get the list of all episodes */
+  episodes?: Maybe<Episodes>;
+  /** Get a list of episodes selected by ids */
+  episodesByIds?: Maybe<Array<Maybe<Episode>>>;
 };
 
 
-export type QueryAllUsersArgs = {
-  first?: Maybe<Scalars['Int']>;
-  skip?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<UserOrderBy>;
+export type QueryCharacterArgs = {
+  id: Scalars['ID'];
 };
 
 
-export type QueryUserArgs = {
-  id: Scalars['String'];
+export type QueryCharactersArgs = {
+  page?: Maybe<Scalars['Int']>;
+  filter?: Maybe<FilterCharacter>;
 };
 
 
-export type QueryAllPostsArgs = {
-  first?: Maybe<Scalars['Int']>;
-  skip?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<PostOrderBy>;
+export type QueryCharactersByIdsArgs = {
+  ids: Array<Scalars['ID']>;
 };
 
 
-export type QueryPostArgs = {
-  id: Scalars['String'];
+export type QueryLocationArgs = {
+  id: Scalars['ID'];
 };
 
-export type UserOrderBy = {
-  firstName?: Maybe<OrderBy>;
-  lastName?: Maybe<OrderBy>;
-  createdAt?: Maybe<OrderBy>;
-  updatedAt?: Maybe<OrderBy>;
+
+export type QueryLocationsArgs = {
+  page?: Maybe<Scalars['Int']>;
+  filter?: Maybe<FilterLocation>;
 };
 
-export const OrderBy = {
-  Asc: 'asc',
-  Desc: 'desc'
+
+export type QueryLocationsByIdsArgs = {
+  ids: Array<Scalars['ID']>;
+};
+
+
+export type QueryEpisodeArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryEpisodesArgs = {
+  page?: Maybe<Scalars['Int']>;
+  filter?: Maybe<FilterEpisode>;
+};
+
+
+export type QueryEpisodesByIdsArgs = {
+  ids: Array<Scalars['ID']>;
+};
+
+export type Character = {
+  __typename?: 'Character';
+  /** The id of the character. */
+  id?: Maybe<Scalars['ID']>;
+  /** The name of the character. */
+  name?: Maybe<Scalars['String']>;
+  /** The status of the character ('Alive', 'Dead' or 'unknown'). */
+  status?: Maybe<Scalars['String']>;
+  /** The species of the character. */
+  species?: Maybe<Scalars['String']>;
+  /** The type or subspecies of the character. */
+  type?: Maybe<Scalars['String']>;
+  /** The gender of the character ('Female', 'Male', 'Genderless' or 'unknown'). */
+  gender?: Maybe<Scalars['String']>;
+  /** The character's origin location */
+  origin?: Maybe<Location>;
+  /** The character's last known location */
+  location?: Maybe<Location>;
+  /**
+   * Link to the character's image.
+   * All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars.
+   */
+  image?: Maybe<Scalars['String']>;
+  /** Episodes in which this character appeared. */
+  episode?: Maybe<Array<Maybe<Episode>>>;
+  /** Time at which the character was created in the database. */
+  created?: Maybe<Scalars['String']>;
+};
+
+export type Location = {
+  __typename?: 'Location';
+  /** The id of the location. */
+  id?: Maybe<Scalars['ID']>;
+  /** The name of the location. */
+  name?: Maybe<Scalars['String']>;
+  /** The type of the location. */
+  type?: Maybe<Scalars['String']>;
+  /** The dimension in which the location is located. */
+  dimension?: Maybe<Scalars['String']>;
+  /** List of characters who have been last seen in the location. */
+  residents?: Maybe<Array<Maybe<Character>>>;
+  /** Time at which the location was created in the database. */
+  created?: Maybe<Scalars['String']>;
+};
+
+export type Episode = {
+  __typename?: 'Episode';
+  /** The id of the episode. */
+  id?: Maybe<Scalars['ID']>;
+  /** The name of the episode. */
+  name?: Maybe<Scalars['String']>;
+  /** The air date of the episode. */
+  air_date?: Maybe<Scalars['String']>;
+  /** The code of the episode. */
+  episode?: Maybe<Scalars['String']>;
+  /** List of characters who have been seen in the episode. */
+  characters?: Maybe<Array<Maybe<Character>>>;
+  /** Time at which the episode was created in the database. */
+  created?: Maybe<Scalars['String']>;
+};
+
+export type FilterCharacter = {
+  name?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  species?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  gender?: Maybe<Scalars['String']>;
+};
+
+export type Characters = {
+  __typename?: 'Characters';
+  info?: Maybe<Info>;
+  results?: Maybe<Array<Maybe<Character>>>;
+};
+
+export type Info = {
+  __typename?: 'Info';
+  /** The length of the response. */
+  count?: Maybe<Scalars['Int']>;
+  /** The amount of pages. */
+  pages?: Maybe<Scalars['Int']>;
+  /** Number of the next page (if it exists) */
+  next?: Maybe<Scalars['Int']>;
+  /** Number of the previous page (if it exists) */
+  prev?: Maybe<Scalars['Int']>;
+};
+
+export type FilterLocation = {
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  dimension?: Maybe<Scalars['String']>;
+};
+
+export type Locations = {
+  __typename?: 'Locations';
+  info?: Maybe<Info>;
+  results?: Maybe<Array<Maybe<Location>>>;
+};
+
+export type FilterEpisode = {
+  name?: Maybe<Scalars['String']>;
+  episode?: Maybe<Scalars['String']>;
+};
+
+export type Episodes = {
+  __typename?: 'Episodes';
+  info?: Maybe<Info>;
+  results?: Maybe<Array<Maybe<Episode>>>;
+};
+
+export const CacheControlScope = {
+  Public: 'PUBLIC',
+  Private: 'PRIVATE'
 } as const;
 
-export type OrderBy = typeof OrderBy[keyof typeof OrderBy];
-export type User = {
-  __typename?: 'User';
-  id: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
-  email: Scalars['String'];
-};
+export type CacheControlScope = typeof CacheControlScope[keyof typeof CacheControlScope];
 
-
-export type _QueryMeta = {
-  __typename?: '_QueryMeta';
-  count: Scalars['Int'];
-};
-
-export type PostOrderBy = {
-  title?: Maybe<OrderBy>;
-  createdAt?: Maybe<OrderBy>;
-  updatedAt?: Maybe<OrderBy>;
-  votes?: Maybe<OrderBy>;
-};
-
-export type Post = {
-  __typename?: 'Post';
-  id: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
-  title: Scalars['String'];
-  url: Scalars['String'];
-  votes: Scalars['Int'];
-};
-
-export type Mutation = {
-  __typename?: 'Mutation';
-  createPost: Post;
-  votePost: Post;
-};
-
-
-export type MutationCreatePostArgs = {
-  title: Scalars['String'];
-  url: Scalars['String'];
-};
-
-
-export type MutationVotePostArgs = {
-  id: Scalars['String'];
-};
-
-export type AllPostsQueryVariables = Exact<{
-  first: Scalars['Int'];
-  skip: Scalars['Int'];
+export type CharactersQueryVariables = Exact<{
+  page?: Scalars['Int'];
 }>;
 
 
-export type AllPostsQuery = (
+export type CharactersQuery = (
   { __typename?: 'Query' }
-  & { allPosts: Array<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'votes' | 'url' | 'createdAt'>
-  )>, _allPostsMeta: (
-    { __typename?: '_QueryMeta' }
-    & Pick<_QueryMeta, 'count'>
-  ) }
+  & { characters?: Maybe<(
+    { __typename?: 'Characters' }
+    & { info?: Maybe<(
+      { __typename?: 'Info' }
+      & Pick<Info, 'count' | 'pages' | 'next' | 'prev'>
+    )>, results?: Maybe<Array<Maybe<(
+      { __typename?: 'Character' }
+      & CharacterFragment
+    )>>> }
+  )> }
 );
 
-export type CreatePostMutationVariables = Exact<{
-  title: Scalars['String'];
-  url: Scalars['String'];
+export type CharacterQueryVariables = Exact<{
+  id: Scalars['ID'];
 }>;
 
 
-export type CreatePostMutation = (
-  { __typename?: 'Mutation' }
-  & { createPost: (
-    { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'votes' | 'url' | 'createdAt'>
-  ) }
+export type CharacterQuery = (
+  { __typename?: 'Query' }
+  & { character?: Maybe<(
+    { __typename?: 'Character' }
+    & CharacterFragment
+  )> }
 );
 
-export type VotePostMutationVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-export type VotePostMutation = (
-  { __typename?: 'Mutation' }
-  & { votePost: (
-    { __typename: 'Post' }
-    & Pick<Post, 'id' | 'votes'>
-  ) }
+export type CharacterFragment = (
+  { __typename?: 'Character' }
+  & Pick<Character, 'id' | 'name' | 'image' | 'type' | 'status' | 'species'>
+  & { origin?: Maybe<(
+    { __typename?: 'Location' }
+    & LocationFragment
+  )>, location?: Maybe<(
+    { __typename?: 'Location' }
+    & LocationFragment
+  )>, episode?: Maybe<Array<Maybe<(
+    { __typename?: 'Episode' }
+    & Pick<Episode, 'id' | 'name'>
+  )>>> }
 );
 
+export type LocationFragment = (
+  { __typename?: 'Location' }
+  & Pick<Location, 'id' | 'name' | 'dimension'>
+  & { residents?: Maybe<Array<Maybe<(
+    { __typename?: 'Character' }
+    & Pick<Character, 'id' | 'name'>
+  )>>> }
+);
 
-export const AllPostsDocument = gql`
-    query allPosts($first: Int!, $skip: Int!) {
-  allPosts(orderBy: {createdAt: desc}, first: $first, skip: $skip) {
+export const LocationFragmentDoc = gql`
+    fragment Location on Location {
+  id
+  name
+  dimension
+  residents {
     id
-    title
-    votes
-    url
-    createdAt
-  }
-  _allPostsMeta {
-    count
+    name
   }
 }
     `;
+export const CharacterFragmentDoc = gql`
+    fragment Character on Character {
+  id
+  name
+  image
+  type
+  status
+  species
+  origin {
+    ...Location
+  }
+  location {
+    ...Location
+  }
+  episode {
+    id
+    name
+  }
+}
+    ${LocationFragmentDoc}`;
+export const CharactersDocument = gql`
+    query characters($page: Int! = 0) {
+  characters(page: $page) {
+    info {
+      count
+      pages
+      next
+      prev
+    }
+    results {
+      ...Character
+    }
+  }
+}
+    ${CharacterFragmentDoc}`;
 
 /**
- * __useAllPostsQuery__
+ * __useCharactersQuery__
  *
- * To run a query within a React component, call `useAllPostsQuery` and pass it any options that fit your needs.
- * When your component renders, `useAllPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useCharactersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCharactersQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useAllPostsQuery({
+ * const { data, loading, error } = useCharactersQuery({
  *   variables: {
- *      first: // value for 'first'
- *      skip: // value for 'skip'
+ *      page: // value for 'page'
  *   },
  * });
  */
-export function useAllPostsQuery(baseOptions: Apollo.QueryHookOptions<AllPostsQuery, AllPostsQueryVariables>) {
-        return Apollo.useQuery<AllPostsQuery, AllPostsQueryVariables>(AllPostsDocument, baseOptions);
+export function useCharactersQuery(baseOptions?: Apollo.QueryHookOptions<CharactersQuery, CharactersQueryVariables>) {
+        return Apollo.useQuery<CharactersQuery, CharactersQueryVariables>(CharactersDocument, baseOptions);
       }
-export function useAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllPostsQuery, AllPostsQueryVariables>) {
-          return Apollo.useLazyQuery<AllPostsQuery, AllPostsQueryVariables>(AllPostsDocument, baseOptions);
+export function useCharactersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CharactersQuery, CharactersQueryVariables>) {
+          return Apollo.useLazyQuery<CharactersQuery, CharactersQueryVariables>(CharactersDocument, baseOptions);
         }
-export type AllPostsQueryHookResult = ReturnType<typeof useAllPostsQuery>;
-export type AllPostsLazyQueryHookResult = ReturnType<typeof useAllPostsLazyQuery>;
-export type AllPostsQueryResult = Apollo.QueryResult<AllPostsQuery, AllPostsQueryVariables>;
-export const CreatePostDocument = gql`
-    mutation createPost($title: String!, $url: String!) {
-  createPost(title: $title, url: $url) {
-    id
-    title
-    votes
-    url
-    createdAt
+export type CharactersQueryHookResult = ReturnType<typeof useCharactersQuery>;
+export type CharactersLazyQueryHookResult = ReturnType<typeof useCharactersLazyQuery>;
+export type CharactersQueryResult = Apollo.QueryResult<CharactersQuery, CharactersQueryVariables>;
+export const CharacterDocument = gql`
+    query character($id: ID!) {
+  character(id: $id) {
+    ...Character
   }
 }
-    `;
-export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
+    ${CharacterFragmentDoc}`;
 
 /**
- * __useCreatePostMutation__
+ * __useCharacterQuery__
  *
- * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreatePostMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
+ * To run a query within a React component, call `useCharacterQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCharacterQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
- *   variables: {
- *      title: // value for 'title'
- *      url: // value for 'url'
- *   },
- * });
- */
-export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>) {
-        return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, baseOptions);
-      }
-export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
-export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
-export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
-export const VotePostDocument = gql`
-    mutation votePost($id: String!) {
-  votePost(id: $id) {
-    id
-    votes
-    __typename
-  }
-}
-    `;
-export type VotePostMutationFn = Apollo.MutationFunction<VotePostMutation, VotePostMutationVariables>;
-
-/**
- * __useVotePostMutation__
- *
- * To run a mutation, you first call `useVotePostMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useVotePostMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const [votePostMutation, { data, loading, error }] = useVotePostMutation({
+ * const { data, loading, error } = useCharacterQuery({
  *   variables: {
  *      id: // value for 'id'
  *   },
  * });
  */
-export function useVotePostMutation(baseOptions?: Apollo.MutationHookOptions<VotePostMutation, VotePostMutationVariables>) {
-        return Apollo.useMutation<VotePostMutation, VotePostMutationVariables>(VotePostDocument, baseOptions);
+export function useCharacterQuery(baseOptions: Apollo.QueryHookOptions<CharacterQuery, CharacterQueryVariables>) {
+        return Apollo.useQuery<CharacterQuery, CharacterQueryVariables>(CharacterDocument, baseOptions);
       }
-export type VotePostMutationHookResult = ReturnType<typeof useVotePostMutation>;
-export type VotePostMutationResult = Apollo.MutationResult<VotePostMutation>;
-export type VotePostMutationOptions = Apollo.BaseMutationOptions<VotePostMutation, VotePostMutationVariables>;
+export function useCharacterLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CharacterQuery, CharacterQueryVariables>) {
+          return Apollo.useLazyQuery<CharacterQuery, CharacterQueryVariables>(CharacterDocument, baseOptions);
+        }
+export type CharacterQueryHookResult = ReturnType<typeof useCharacterQuery>;
+export type CharacterLazyQueryHookResult = ReturnType<typeof useCharacterLazyQuery>;
+export type CharacterQueryResult = Apollo.QueryResult<CharacterQuery, CharacterQueryVariables>;

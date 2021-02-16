@@ -8,12 +8,17 @@ export const Button = styled.button<ButtonProps>`
     cursor: pointer;
     background-color: transparent;
     border: 3px solid currentColor;
-    border-radius: 3px;
+    border-radius: 7px;
     outline: none;
     transition: color 0.1s ease;
 
     &:hover {
         color: var(--color-4);
+    }
+
+    &:disabled {
+        color: grey;
+        cursor: not-allowed;
     }
 
     ${props =>

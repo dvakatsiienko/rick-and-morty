@@ -1,4 +1,4 @@
-schema: 'https://nextjs-graphql-with-prisma-simple.vercel.app/api'
+schema: 'https://rickandmortyapi.com/graphql'
 documents: 'src/graphql/**/*.graphql'
 
 config:

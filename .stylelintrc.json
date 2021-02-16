@@ -25,6 +25,8 @@
         "csstools/use-nesting": "always",
         "value-keyword-case": ["lower", { "ignoreKeywords": ["dummyValue"] }],
 
-        "indentation": 4
+        "indentation": 4,
+        "declaration-empty-line-before": "never",
+        "declaration-colon-newline-after": "always-multi-line"
     }
 }
