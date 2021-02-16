@@ -4,5 +4,4 @@ export * from './Ul';
 export * from './Li';
 export * from './Link';
 export * from './Button';
-export * from './Accent';
 export * from './DropDown';
