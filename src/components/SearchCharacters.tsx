@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useCombobox } from 'downshift';
-import debounce from 'lodash.debounce';
 import useSWR from 'swr';
 
 /* Components */
@@ -19,9 +18,6 @@ export const SearchCharacters: React.FC<SearchCharactersProps> = () => {
     const { data, error } = useSWR<Response>(
         `${API_URL}/api/character?name=${searchedCharacter}`,
     );
-    console.log(searchedCharacter);
-
-    const setSearchedCharacterDebounced = debounce(setSearchedCharacter, 350);
 
     const {
         inputValue: searchTerm,
