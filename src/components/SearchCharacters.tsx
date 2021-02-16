@@ -9,13 +9,13 @@ import { Li, SearchStyles, DropDown, DropDownItem } from '@/components/styled';
 import { ListCharacter } from '@/components';
 
 /* Instruments */
-import * as gql from '@/graphql';
+import * as types from '@/types';
 
-export const SearchCharacters: React.FC<SearchCharactersProps> = () => {
+export const SearchCharacters: React.FC = () => {
     const router = useRouter();
     const [ searchedCharacter, setSearchedCharacter ] = useState('');
 
-    const { data, error } = useSWR<Response>(
+    const { data, error } = useSWR<types.CharacterResponse>(
         `${API_URL}/api/character?name=${searchedCharacter}`,
     );
 
@@ -83,14 +83,3 @@ export const SearchCharacters: React.FC<SearchCharactersProps> = () => {
 
 /* Helpers */
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-/* Types */
-interface SearchCharactersProps {
-    test?: string;
-}
-
-type Response = {
-    info: gql.Info;
-    results: gql.Character[];
-    error: string;
-};

@@ -10,6 +10,7 @@ import { ListCharacter } from '@/components';
 
 /* Instruments */
 import * as gql from '@/graphql';
+import * as types from '@/types';
 
 export const PaginatedCharacters: React.FC<PaginatedCharactersProps> = props => {
     const router = useRouter();
@@ -33,7 +34,7 @@ export const PaginatedCharacters: React.FC<PaginatedCharactersProps> = props => 
         setPaginationPage(1);
     };
 
-    const { data } = useSWR<Response>(
+    const { data } = useSWR<types.CharacterResponse>(
         `${API_URL}/api/character?page=${paginationPage}`,
         {
             onSuccess(response) {
@@ -159,8 +160,3 @@ interface PaginatedCharactersProps {
 }
 
 type Direction = 'next' | 'prev';
-type Response = {
-    info: gql.Info;
-    results: gql.Character[];
-    error: string;
-};

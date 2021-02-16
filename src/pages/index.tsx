@@ -1,4 +1,3 @@
-// export { default } from './characters';
 /* Core */
 import { useEffect } from 'react';
 import { NextPage } from 'next';
