@@ -5,7 +5,7 @@ import useSWR from 'swr';
 import waait from 'waait';
 
 /* Components */
-import { Ul, Button } from '@/components/styled';
+import { Ul, Button, H4 } from '@/components/styled';
 import { ListCharacter } from '@/components';
 
 /* Instruments */
@@ -19,6 +19,7 @@ export const PaginatedCharacters: React.FC<PaginatedCharactersProps> = props => 
     const [ characters, setCharacters ] = useState<gql.Character[]>(null);
     const [ currentPage, setCurrentPage ] = useState(props.initialPage);
     const [ cursor, setCursor ] = useState(() => props.initialPage * 6 - 6);
+    const [ maxCurrentPage, setMaxCurrentPages ] = useState(0);
 
     const initialPaginationPage = Math.ceil(
         props.initialPage * ITEMS_PER_PAGE / ITEMS_PER_QUERY,
@@ -54,6 +55,10 @@ export const PaginatedCharacters: React.FC<PaginatedCharactersProps> = props => 
                 }
 
                 const isInitializing = characters === null;
+
+                if (isInitializing) {
+                    setMaxCurrentPages(maxCurrentPage);
+                }
 
                 const initialCharactersCells = [
                     ...Array(response.info.count).fill(null),
@@ -129,20 +134,26 @@ export const PaginatedCharacters: React.FC<PaginatedCharactersProps> = props => 
 
     return (
         <>
-            <Button
-                css = 'margin-right: 20px;'
-                disabled = { isPrevDisabled }
-                onClick = { () => navigateToPage('prev') }
-            >
-                ← Prev
-            </Button>
+            <div css = 'display: flex;'>
+                <Button
+                    css = 'margin-right: 20px;'
+                    disabled = { isPrevDisabled }
+                    onClick = { () => navigateToPage('prev') }
+                >
+                    ← Prev
+                </Button>
 
-            <Button
-                disabled = { isNextDisabled }
-                onClick = { () => navigateToPage('next') }
-            >
-                Next →
-            </Button>
+                <H4 css = 'margin: 0 20px 0 0;'>
+                    {currentPage} of {maxCurrentPage}
+                </H4>
+
+                <Button
+                    disabled = { isNextDisabled }
+                    onClick = { () => navigateToPage('next') }
+                >
+                    Next →
+                </Button>
+            </div>
 
             <Ul $flex-direction = 'column'>{charactersJSX}</Ul>
         </>
